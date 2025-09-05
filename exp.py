@@ -1,7 +1,7 @@
 import os
 import gc
 import argparse
-os.chdir("/data/liuwei/IntegrationWindow")
+os.chdir("/path/to/workdir")
 import warnings
 warnings.filterwarnings("ignore")
 import torch
@@ -72,8 +72,7 @@ def get_next_token_distribution(total_input):
                     output_distribution[int(idx.item())] = round(p.item(), 4)
                 
                 next_token_id = last_token_logits.argmax(dim=-1).unsqueeze(-1).unsqueeze(-1)
-                # input_ids = torch.cat([input_ids, next_token_id], dim=-1)
-                # attention_mask = torch.ones([1, len(past_key_values) + len(input_ids)]).to('cuda')
+
                 tmp_input.append([next_token_id.item()])
                 sub_info.append([tokenizer.decode([next_token_id.item()]), output_distribution])
             
@@ -213,9 +212,9 @@ if __name__ == '__main__':
     bs_size = 32
     for name in ['gpt','qwen']:
         if name == 'gpt':
-            model_name = '/data/model/pretrain/gpt2'
+            model_name = 'openai-community/gpt2'
         elif name == 'qwen':
-            model_name = '/data/model/pretrain/Qwen2.5-1.5B'
+            model_name = 'Qwen/Qwen2.5-1.5B'
 
         logger.info(f"model from: {model_name}" )
 
