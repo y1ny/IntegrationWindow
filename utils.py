@@ -1,5 +1,5 @@
 import os
-os.chdir("/data/liuwei/OrderWindow")
+os.chdir("/path/to/workdir")
 import pickle
 import re
 
